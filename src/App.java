@@ -1,6 +1,18 @@
+import java.util.ArrayList;
+
+public class App {
+    public static void main(String[] args)
+    {
+        // Variable to store the songs
+        ArrayList<Song> songs;
+
+        // import the songs from the CSV using the SongImporter
         songs = SongImporter.importSongsFromCSV("songs.csv");
-// Loop across all the songs imported
-        int year_count = 0;
+
+        // Loop across all the songs imported
+        int year_count_1982 = 0;
+        int year_count_1998 = 0;
+        int year_count_2011 = 0;
         int dance_count = 0;
         int largest = 0;
         String largest_len_song = "";
@@ -22,18 +34,23 @@
         int count_6 = 0; 
         double obscenity_7 = 0.0; 
         int count_7 = 0;
+
         for (int i=0; i<songs.size(); i++)
         {
             // Get the current song matching the loop index i
             Song s = songs.get(i);
             // Example - print the song
             // You should add code to compute song statistics here.
-            System.out.println("Artist:" + s.getArtist());
-        }       
-            String year = s.getDate();
+            int year = Integer.parseInt(s.getDate());
             String danceability = s.getDanceability();
-            if(Integer.parseInt(year) == 1982 || Integer.parseInt(year) == 1998 || Integer.parseInt(year) == 2011){
-                year_count++;
+            if(year == 1982){
+                year_count_1982++;
+            }
+            if(year == 1998){
+                year_count_1998++;
+            }
+            if(year == 2011){
+                year_count_2011++;
             }
             if(1959 >= Integer.parseInt(s.getDate()) && 1950 <= Integer.parseInt(s.getDate())){
                 obscenity_1 += Double.parseDouble(s.getObscene());
@@ -81,7 +98,9 @@
             }
         }
         System.out.println("Number of songs: " + songs.size());
-        System.out.println("Number of songs from 1982 , 1998 or 2011: " + year_count);
+        System.out.println("Number of songs from 1982: " + year_count_1982);
+        System.out.println("Number of songs from 1998 : " + year_count_1998);
+        System.out.println("Number of songs from 2011: " + year_count_2011);
         System.out.println("Songs with danceability > 0.75: "+ dance_count);
         System.out.println("Song with the largest len: " + largest_len_song + ". Len size: " + largest) ;
         System.out.println("Song with the lowest shakeability: " + shakeability_song + ".  shakeability: " + lowest_shakeability);
